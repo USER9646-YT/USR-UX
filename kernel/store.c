@@ -1,10 +1,10 @@
 #include <stdint.h>
-#include "../usr/lib/store.h"
-#include "../usr/lib/ata.h"
-#include "../usr/lib/ahci.h"
-#include "../usr/lib/multiboot.h"
-#include "../usr/lib/fs.h"
-#include "../usr/lib/build_id.h"
+#include "../include/store.h"
+#include "../include/ata.h"
+#include "../include/ahci.h"
+#include "../include/multiboot.h"
+#include "../include/fs.h"
+#include "../include/build_id.h"
 
 extern void print(const char* s);
 extern void boot_log(const char* msg);

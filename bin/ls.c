@@ -1,7 +1,7 @@
 #include <stdint.h>
 #include <stddef.h>
-#include "../usr/lib/tanja.h"
-#include "../usr/lib/utf8.h"
+#include "tanja.h"
+#include "utf8.h"
 
 #define LS_MAX_ENTRIES 64
 #define LS_NAME_LEN    64

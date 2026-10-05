@@ -1,6 +1,6 @@
 #include <stdint.h>
 #include <stddef.h>
-#include "../usr/lib/fs.h"
+#include "../include/fs.h"
 
 /* ---- console (for error reporting) ------------------------- */
 extern void print(const char* s);

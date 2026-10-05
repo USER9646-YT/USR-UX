@@ -13,7 +13,7 @@
 #include <stddef.h>
 #include <stdint.h>
 #include <stdarg.h>
-#include "../../usr/lib/fs.h"
+#include "../../include/fs.h"
 
 #define EOF_    (-1)
 #define ENOENT_ 2

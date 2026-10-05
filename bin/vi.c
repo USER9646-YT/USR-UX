@@ -1,7 +1,7 @@
 #include <stdint.h>
 #include <stddef.h>
-#include "../usr/lib/tanja.h"
-#include "../usr/lib/utf8.h"
+#include "tanja.h"
+#include "utf8.h"
 
 #define ESC_KEY 27
 #define TAB_KEY 9

@@ -1,5 +1,5 @@
 #include <stdint.h>
-#include "../usr/lib/fs.h"
+#include "../include/fs.h"
 
 extern void print(const char* s);
 extern void execute_command(const char* cmd_line);

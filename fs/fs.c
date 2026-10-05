@@ -1,4 +1,4 @@
-#include "../usr/lib/fs.h"
+#include "../include/fs.h"
 
 // Hook into store.c. It's always linked in; it no-ops internally if no
 // disk-backed Storefile is active. Declared extern here (rather than

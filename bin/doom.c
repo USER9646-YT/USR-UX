@@ -1,6 +1,6 @@
 #include <stdint.h>
 #include <stddef.h>
-#include "../usr/lib/tanja.h"
+#include "tanja.h"
 
 /* /bin/doom.o - makes Doom show up in /bin like every other command.
  *

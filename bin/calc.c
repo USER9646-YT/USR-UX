@@ -1,7 +1,7 @@
 #include <stdint.h>
 #include <stddef.h>
-#include "../usr/lib/tanja.h"
-#include "../usr/lib/utf8.h"
+#include "tanja.h"
+#include "utf8.h"
 
 // Helper to read a line of text from the keyboard
 static void calc_read_line(char* buf, int max_len) {

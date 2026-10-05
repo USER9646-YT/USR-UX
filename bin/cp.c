@@ -1,7 +1,7 @@
 #include <stdint.h>
 #include <stddef.h>
-#include "../usr/lib/tanja.h"
-#include "../usr/lib/utf8.h"
+#include "tanja.h"
+#include "utf8.h"
 
 static int cp_strlen(const char* s) {
     int n = 0;

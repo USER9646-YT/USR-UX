@@ -1,5 +1,5 @@
 #include <stdint.h>
-#include "../usr/lib/ata.h"
+#include "../include/ata.h"
 
 // Self-contained port I/O helpers (kept local so this file has no
 // dependency on kernel.c's globals).

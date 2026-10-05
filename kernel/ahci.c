@@ -1,5 +1,5 @@
 #include <stdint.h>
-#include "../usr/lib/ahci.h"
+#include "../include/ahci.h"
 
 extern uint32_t get_uptime_ms(void);
 

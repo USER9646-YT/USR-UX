@@ -1,6 +1,6 @@
 #include <stdint.h>
 #include <stddef.h>
-#include "../usr/lib/tanja.h"
+#include "tanja.h"
 
 static int icase;
 

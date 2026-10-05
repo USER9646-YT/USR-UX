@@ -1,5 +1,5 @@
 #include <stdint.h>
-#include "../usr/lib/idt.h"
+#include "../include/idt.h"
 
 typedef struct __attribute__((packed)) {
     uint16_t base_low;

@@ -1,10 +1,10 @@
 #include <stdint.h>
 #include <stddef.h>
 #include <stdarg.h>
-#include "../usr/lib/fs.h"
-#include "../usr/lib/store.h"
-#include "../usr/lib/idt.h"
-#include "../usr/lib/utf8.h"
+#include "../include/fs.h"
+#include "../include/store.h"
+#include "../include/idt.h"
+#include "../include/utf8.h"
 
 // VGA CONSTANTS
 

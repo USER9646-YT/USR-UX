@@ -1,7 +1,7 @@
 #include <stdint.h>
 #include <stddef.h>
-#include "../usr/lib/tanja.h"
-#include "../usr/lib/utf8.h"
+#include "tanja.h"
+#include "utf8.h"
 
 // sleep <seconds> - e.g. `sleep 2` or `sleep 0.5`. Delegates to
 // timer_delay_ms(), which halts the CPU between PIT ticks instead of
