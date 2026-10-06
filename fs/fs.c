@@ -265,17 +265,31 @@ void fs_seed_home(void) {
     if (!fs_directory_exists("/etc"))
         fs_create_directory("/etc");
 
-    // 2. Write your system variables file inside it!
+    // os-release like linux
     if (!fs_file_exists("/etc/os-release")) {
         fs_create_file("/etc/os-release");
 
-        // Set up your text block using standard Unix formatting
+        // Set up text block
         const char* os_info = "NAME=\"USR/UX\"\n"
-                              "VERSION=\"0.5.0-alpha\"\n"
+                              "VERSION=\"0.5.3-alpha\"\n"
                               "KERNEL=\"mskkernel-usrux\"\n";
 
-        // Write it to your virtual RAM filesystem using the OS's write helper
+        // Write to virtual RAM filesystem
         fs_write_file("/etc/os-release", (const char*)os_info, strlen_safe(os_info));
+        }
+
+        if (!fs_directory_exists("/sys"))
+            fs_create_directory("/sys");
+
+        // proc like linux
+        if (!fs_file_exists("/sys/ostype")) {
+            fs_create_file("/sys/ostype");
+
+            // Set up text block
+            const char* os_info = "USR/UX\n";
+
+            // Write to virtual RAM filesystem
+            fs_write_file("/sys/ostype", (const char*)os_info, strlen_safe(os_info));
         }
     }
 }

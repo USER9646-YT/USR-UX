@@ -1,6 +1,7 @@
 #include <stdint.h>
 #include <stddef.h>
 #include <stdarg.h>
+#include "../include/shell.h"
 #include "../include/fs.h"
 #include "../include/store.h"
 #include "../include/idt.h"
@@ -64,16 +65,7 @@ int caps_lock = 0;
 
 // USER CONFIGURATION
 
-#define MAX_USERNAME 32
-#define MAX_PASSWORD 32
-#define MAX_HOSTNAME 64
-
-typedef struct {
-    char username[MAX_USERNAME];
-    char password[MAX_PASSWORD];
-    char hostname[MAX_HOSTNAME];
-    int is_setup;
-} user_config_t;
+// Here lied USERCONF shit that is now present in shell.h
 
 user_config_t config = { .is_setup = 0 };
 
@@ -487,8 +479,6 @@ void clean(char* s) {
 }
 
 // INPUT
-
-#define INPUT_BUFFER_SIZE 65536
 
 static char input_line[INPUT_BUFFER_SIZE];
 
@@ -1216,26 +1206,7 @@ void print_prompt_path() {
     }
 }
 
-void shell() {
-    shell_exit_flag = 0; static char buf[INPUT_BUFFER_SIZE];
-    while (1) {
-        print(config.username); print("@"); print(config.hostname); print(":");
-        print_prompt_path();
-        /* root uses #, all other users use $. */
-        if (streq(config.username, "root")) print("# ");
-        else print("$ ");
-        read_line(buf, 4096); clean(buf);
-        {
-            int bl = strlen(buf);
-            if (bl > 0 && buf[bl - 1] == 4) {
-                buf[bl - 1] = 0;
-                if (buf[0] == 0) { print("exit\n"); shell_exit_flag = 1; }
-            }
-        }
-        if (buf[0]) execute_command(buf);
-        if (shell_exit_flag) { clear_screen(); break; }
-    }
-}
+// Here lies the former code for shell.
 
 void kernel_panic_storage(const char *reason) {
     clear_screen();
