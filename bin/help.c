@@ -87,7 +87,7 @@ void main(char* args) {
     collect_dir("/bin");
     sort_names();
 
-    print("The TanjaOS Project\n");
+    print("The USR/UX Project\n");
     print("Available commands are listed below.\n\n");
 
     int i;

@@ -103,5 +103,5 @@ STDINTEOF
 cp std-include/*.h "$DEST/"
 cp std-include/sys/*.h "$DEST/sys/"
 
-echo "[HEADERS] installed into home/include (shipped as /include):"
+echo "[HEADERS] installed into home/usr/include (shipped as /usr/include):"
 find "$DEST" -type f | sort

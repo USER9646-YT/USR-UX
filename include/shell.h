@@ -21,8 +21,11 @@ typedef struct {
 extern user_config_t config;
 extern int shell_exit_flag;
 
+void read_line(char* buffer, int max_len);
 void shell(void);
 void print_prompt_path(void);
+void login_prompt(void);
+void init(void);
 
 // JESUS FUCKING CHRIST JUST WORK PLEASSEEEEE
 

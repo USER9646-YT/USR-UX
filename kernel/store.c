@@ -187,10 +187,10 @@ int store_is_persistent(void) {
 // across different VM software that orders IDE devices differently.
 static void log_slot(int channel, int drive) {
     boot_log(channel == 0
-        ? (drive == 0 ? "Storefile: using primary master"
-                      : "Storefile: using primary slave")
-        : (drive == 0 ? "Storefile: using secondary master"
-                      : "Storefile: using secondary slave"));
+        ? (drive == 0 ? "storefile: using primary master"
+                      : "storefile: using primary slave")
+        : (drive == 0 ? "storefile: using secondary master"
+                      : "storefile: using secondary slave"));
 }
 
 static int boot_is_livecd(uint32_t mb_magic, uint32_t mb_addr) {
@@ -260,12 +260,12 @@ void store_init(uint32_t mb_magic, uint32_t mb_addr) {
     if (capacity_bytes > sizeof(store_buf) ||
         store_capacity_sectors > STORE_BUF_SECTORS) {
         if (boot_is_livecd(mb_magic, mb_addr)) {
-            boot_log("Storefile: This LiveCD session will run from RAM");
+            boot_log("storefile: this livecd session will run from ram");
             fs_init();
             fs_seed_home();
             return;
         }
-        kernel_panic_storage("The Storefile image is too large for the kernel storage buffer.");
+        kernel_panic_storage("storefile image too large for the kernel storage buffer.");
     }
 
     ata_init();
@@ -290,17 +290,17 @@ void store_init(uint32_t mb_magic, uint32_t mb_addr) {
         backend = BACKEND_AHCI;
         disk_sectors = ahci_get_sector_count();
         found = 1;
-        boot_log("Storefile: using AHCI drive");
+        boot_log("storefile: using AHCI");
     }
 
     if (!found) {
         if (boot_is_livecd(mb_magic, mb_addr)) {
-            boot_log("Storefile: This LiveCD session will run from RAM");
+            boot_log("storefile: this livecd session will run from ram");
             fs_init();
             fs_seed_home();
             return;
         }
-        kernel_panic_storage("No usable persistent disk was found.");
+        kernel_panic_storage("no usable persistent disk found.");
     }
 
     store_disk_sectors = disk_sectors;
@@ -320,10 +320,10 @@ void store_init(uint32_t mb_magic, uint32_t mb_addr) {
             store_enabled = 0;
             fs_init();
             fs_seed_home();
-            boot_log("Storefile: This session will run from RAM");
+            boot_log("storefile: this session will run from ram");
             return;
         }
-        kernel_panic_storage("Minimum recommended disk size is 47 MiB");
+        kernel_panic_storage("minimum recommended disk size is 47 MiB");
     }
 
     // store_lba is anchored to the END of the disk, but the installer put
@@ -339,7 +339,7 @@ void store_init(uint32_t mb_magic, uint32_t mb_addr) {
             store_enabled = 0;
             fs_init();
             fs_seed_home();
-            boot_log("Storefile: disk too small for safe persistence, running from RAM");
+            boot_log("storefile: disk too small for safe persistence, running from RAM");
             return;
         }
         kernel_panic_storage("Disk too small, minimum recommended disk size is 47 MiB");
@@ -367,17 +367,17 @@ void store_init(uint32_t mb_magic, uint32_t mb_addr) {
                     config_deserialize(store_buf + STORE_HEADER_BYTES + fs_bytes,
                                        store_cfg_need) == 0) {
                     store_enabled = 1;
-                    boot_log("Storefile: loaded saved state from disk");
+                    boot_log("storefile: loaded saved state from disk");
                     return;
                 }
             }
         }
-        boot_log("Storefile: saved image failed validation, starting fresh");
+        boot_log("storefile: saved image failed validation, starting fresh");
     } else if (store_backend_read(store_lba, 1, store_buf) == 0) {
         if (!store_header_valid())
-            boot_log("Storefile: on-disk image starting from a fresh condition");
+            boot_log("storefile: on-disk image starting from a fresh condition");
         else
-            boot_log("Storefile: saved state is from a new/custom version");
+            boot_log("storefile: saved state is from a new/custom version");
     }
 
     /* No usable disk state. Start from factory home/ contents, then
@@ -397,14 +397,14 @@ void store_init(uint32_t mb_magic, uint32_t mb_addr) {
             if (mod_size >= 8) {
                 if (fs_deserialize((const uint8_t*)(uintptr_t)mod_start,
                                    mod_size) == 0)
-                    boot_log("Storefile: seeded state from boot module");
+                    boot_log("storefile: seeded state from boot module");
                 else
-                    boot_log("Storefile: boot module wasn't a valid image, starting empty");
+                    boot_log("storefile: boot module wasn't a valid image, starting empty");
             }
         }
     }
 
     store_enabled = 1;
     store_autosave();
-    boot_log("Storefile: persistence enabled, initial state written to disk");
+    boot_log("storefile: persistence enabled, initial state written to disk");
 }

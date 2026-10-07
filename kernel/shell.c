@@ -8,7 +8,7 @@
 #include "../include/idt.h"
 #include "../include/utf8.h"
 
-// man fuck that shit
+// man fuck this shit
 
 void shell() {
     printf("If you see this, the shell is now officially seperated from the kernel\n");

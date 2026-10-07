@@ -1103,7 +1103,7 @@ void execute_command(const char* cmd_line) {
      * kernel image).  Then try /Programs - any file there (ELF32
      * object or shell script) is runnable, which lets the user add
      * or override commands by dropping files into bin/. */
-    static const char* dirs[] = { "/bin/", "/Programs/" };
+    static const char* dirs[] = { "/bin/", "/usr/bin/", "/Programs/" };
     static const char* exts[] = { "", ".o" };
     char prog_path[320];
 
@@ -1160,15 +1160,7 @@ void setup_wizard() {
     config.is_setup = 1; print("\n");
 }
 
-void login_prompt() {
-    char u[MAX_USERNAME], p[MAX_PASSWORD];
-    while (1) {
-        print(config.hostname); print(" login: "); read_line(u, MAX_USERNAME);
-        print("Password: "); read_line(p, MAX_PASSWORD);
-        if (streq(u, config.username) && streq(p, config.password)) { return; }
-        print("Login incorrect\n\n");
-    }
-}
+// formerly Login prompt was here lol
 
 void cmd_exit(char* args) { (void)args; shell_exit_flag = 1; }
 extern void cmd_doom(char* args);   /* kernel/doom.c */
@@ -1266,22 +1258,9 @@ void kernel_main(uint32_t mb_magic, uint32_t mb_addr)
         store_save();
     }
 
-    boot_log("Starting shell");
+    boot_log("Starting init, please wait..");
     print("\n");
 
-    while (1)
-    {
-        print("USR/UX \n\n");
-
-        login_prompt();
-
-        /* A login always starts in the user's home directory
-         * (/home/home).  The filesystem persists cwd for storage, but
-         * cwd is a shell-session state and should not leak from a
-         * previous login/reboot. */
-        if (fs_change_directory("/home") != 0)
-            fs_change_directory("/");
-
-        shell();
-    }
+    // Go to init system
+    init();
 }
