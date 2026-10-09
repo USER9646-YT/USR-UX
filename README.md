@@ -28,6 +28,7 @@ It also has some other things, that TanjaOS does not have, like:
 - Primitive Semi-Init-system, called via `init()` that starts up login and then shell.
 
 ## How to compile
+Remove the empty files in home/usr/bin and home/usr/src, they keep the folders intact while committing to git. Then after that:
 
 Use 'make' to compile (this compiles the source, all bin/ commands, and
 TinyCC - nothing else). Once compiling is finished, a bootable OS
