@@ -5,7 +5,7 @@ ASM=nasm
 CFLAGS=-ffreestanding -m32 -c -fno-stack-protector -fno-builtin -fno-pic -fno-pie -I.
 LDFLAGS=-m elf_i386 -T linker/linker.ld -nostdlib
 
-KERNEL_OBJ = kernel/kernel.o kernel/init.o kernel/login.o kernel/shell.o kernel/game.o kernel/ata.o kernel/ahci.o kernel/store.o kernel/idt.o kernel/elf.o kernel/exec.o kernel/linux.o kernel/doom.o arch/x86/linux_asm.o
+KERNEL_OBJ = kernel/kernel.o kernel/init.o kernel/setup.o kernel/login.o kernel/shell.o kernel/game.o kernel/ata.o kernel/ahci.o kernel/store.o kernel/idt.o kernel/elf.o kernel/exec.o kernel/linux.o kernel/doom.o arch/x86/linux_asm.o
 
 # ELF32 command binaries.  Every source in bin/ is compiled with
 # plain host gcc (-m32, freestanding, ET_REL) into its own standalone

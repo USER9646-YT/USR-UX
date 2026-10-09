@@ -1150,15 +1150,7 @@ void execute_command(const char* cmd_line) {
 
 // SHELL
 
-void setup_wizard() {
-    print("Starting setup...\n\n");
-    print("===== USR/UX Setup =====\n");
-    print("\n");
-    print("Create a login: "); read_line(config.username, MAX_USERNAME);
-    print("Create a password: "); read_line(config.password, MAX_PASSWORD);
-    print("Set a hostname: "); read_line(config.hostname, MAX_HOSTNAME);
-    config.is_setup = 1; print("\n");
-}
+// Here lied the former code for the setup
 
 // formerly Login prompt was here lol
 
@@ -1212,13 +1204,21 @@ void kernel_panic_storage(const char *reason) {
     for (;;) asm volatile("cli; hlt");
 }
 
-static void kernel_panic_no_bin(void) {
+static void kernel_panic_bin(void) {
     /* This is intentionally a hard boot failure, not a recovery path.
      * If /bin has been removed or emptied, TanjaOS refuses to start
      * another shell and leaves the panic message on screen. */
-    clear_screen();
     print("panic: we are panicking here...\n");
-    print("panic: bin missing\n");
+    print("panic: /bin missing\n");
+    for (;;) asm volatile("cli; hlt");
+}
+
+static void kernel_panic_usr(void) {
+    /* This is intentionally a hard boot failure, not a recovery path.
+     * If /usr has been removed or emptied, TanjaOS refuses to start
+     * another shell and leaves the panic message on screen. */
+    print("panic: we are panicking here...\n");
+    print("panic: /usr missing\n");
     for (;;) asm volatile("cli; hlt");
 }
 
@@ -1241,11 +1241,14 @@ void kernel_main(uint32_t mb_magic, uint32_t mb_addr)
 
     boot_log("Loading binaries...");
 
-    /* /bin is mandatory at boot.  Do not recreate it and do not fall back
+    /* /bin and /usr is mandatory at boot.  Do not recreate it and do not fall back
      * to kernel-provided command binaries: if it was deleted or emptied
      * and the machine is power-cycled/rebooted, deliberately panic here. */
     if (!fs_directory_exists("/bin") || fs_directory_is_empty("/bin"))
-        kernel_panic_no_bin();
+        kernel_panic_bin();
+
+    if (!fs_directory_exists("/usr") || fs_directory_is_empty("/usr"))
+    kernel_panic_usr();
 
     register_cmd("exit", cmd_exit);
     register_cmd("hostname", cmd_hostname);

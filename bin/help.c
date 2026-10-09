@@ -88,6 +88,7 @@ void main(char* args) {
     sort_names();
 
     print("The USR/UX Project\n");
+    print("For user-made applications, do: ls /usr/bin instead\n");
     print("Available commands are listed below.\n\n");
 
     int i;

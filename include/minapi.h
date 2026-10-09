@@ -1,7 +1,7 @@
 #ifndef MINAPI_H
 #define MINAPI_H
 
-// Mini API so that some stuff does not interfere with the normal Tanja API. Basically useless
+// Minimal API so that some stuff does not interfere with the normal Tanja API. Basically useless
 
 #include <stdint.h>
 #include <stddef.h>
